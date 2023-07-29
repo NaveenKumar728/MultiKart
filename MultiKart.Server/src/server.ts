@@ -6,11 +6,12 @@ import { MongoClient, MongoClientOptions } from 'mongodb';
 dotenv.config();
 
 import UserRoute from './routers/User.Route'
+import mongoose from 'mongoose';
 
-const url = 'mongodb+srv://slnminimart:u4bKsdEXp6zFIXB8@cluster0.kuvzcdx.mongodb.net/MultiKart';
+const url = '';
 const app = express();
 
-app.use(bodyParser.json({ limit: '30mb' }));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors()); // enable CORS - Cross Origin Resource Sharing
 
@@ -27,6 +28,6 @@ const MONGODB = process.env.MONGODB_ATLAS_URL ?? url;
 //     useUnifiedTopology: true,
 //   };
 
-MongoClient.connect(MONGODB, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(MONGODB, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`)))
     .catch((error) => console.error(error.message));
